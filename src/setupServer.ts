@@ -1,3 +1,6 @@
+import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
+import { config } from '@root/config';
+import applicationRoutes from '@root/routes';
 import { createAdapter } from '@socket.io/redis-adapter';
 import Logger from 'bunyan';
 import compression from 'compression';
@@ -11,9 +14,6 @@ import http from 'http';
 import HTTP_STATUS from 'http-status-codes';
 import { createClient } from 'redis';
 import { Server } from 'socket.io';
-import { config } from './config';
-import applicationRoutes from './routes';
-import { CustomError, IErrorResponse } from './shared/globals/helpers/error-handler';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -110,5 +110,7 @@ export class SociallyServer {
     });
   }
 
-  private socketIOConnections(io: Server): void {}
+  private socketIOConnections(io: Server): void {
+    log.info('socketIOConnections');
+  }
 }
