@@ -8,6 +8,7 @@ class Application {
     databaseConnection();
     const app: Express = express();
     const server: SociallyServer = new SociallyServer(app);
+    this.loadConfig();
     server.start();
   }
 
