@@ -18,7 +18,7 @@ import { omit } from 'lodash';
 import { ObjectId } from 'mongodb';
 
 const userCache: UserCache = new UserCache();
-export class Signup {
+export class SignUp {
   @joiValidation(signupSchema)
   public async create(req: Request, res: Response): Promise<void> {
     const { username, email, password, avatarColor, avatarImage } = req.body;
@@ -30,7 +30,7 @@ export class Signup {
     const authObjectId: ObjectId = new ObjectId();
     const userObjectId: ObjectId = new ObjectId();
     const uId = `${Helpers.generateRandomIntegers(12)}`;
-    const authData: IAuthDocument = Signup.prototype.signupData({
+    const authData: IAuthDocument = SignUp.prototype.signupData({
       _id: authObjectId,
       uId,
       username,
@@ -44,7 +44,7 @@ export class Signup {
     }
 
     // Add to redis cache
-    const userDataForCache: IUserDocument = Signup.prototype.userData(authData, userObjectId);
+    const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
     userDataForCache.profilePicture = `https://res.cloudinary.com/dz9vxmu5h/image/upload/v${result.version}/${result.public_id}`;
     await userCache.saveUserToCache(`${userObjectId}`, uId, userDataForCache);
 
@@ -53,7 +53,7 @@ export class Signup {
     authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache });
     userQueue.addUserJob('addUserToDB', { value: userDataForCache });
 
-    const userJwt: string = Signup.prototype.signToken(authData, userObjectId);
+    const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
     req.session = { jwt: userJwt };
 
     res
