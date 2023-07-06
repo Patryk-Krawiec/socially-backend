@@ -11,7 +11,8 @@ class UserService {
     const users: IUserDocument[] = await UserModel.aggregate([
       { $match: { _id: new mongoose.Types.ObjectId(userId) } },
       { $lookup: { from: 'Auth', localField: 'authId', foreignField: '_id', as: 'authId' } },
-      { $unwind: '$authId' }
+      { $unwind: '$authId' },
+      { $project: this.aggregateProject() }
     ]);
     return users[0];
   }
