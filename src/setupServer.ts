@@ -38,7 +38,7 @@ export class SociallyServer {
       cookieSession({
         name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-        maxAge: 24 * 7 * 3_600_000,
+        maxAge: 5000,
         secure: config.NODE_ENV !== 'development'
       })
     );
