@@ -27,7 +27,7 @@ class MailTransport {
 
   private async developmentEmailSender(recieverEmail: string, subject: string, body: string): Promise<void> {
     const transporter: Mail = nodemailer.createTransport({
-      host: 'smtp.forwardemail.net',
+      host: 'smtp.ethereal.email',
       port: 587,
       secure: false,
       auth: {
