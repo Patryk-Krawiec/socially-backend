@@ -34,12 +34,12 @@ export abstract class BaseQueue {
       job.remove();
     });
 
-    this.queue.on('global:completed', (job: Job) => {
-      this.log.info(`Job ${job.id} has completed`);
+    this.queue.on('global:completed', (jobId: string) => {
+      this.log.info(`Job ${jobId} has completed`);
     });
 
-    this.queue.on('global:stalled', (job: Job) => {
-      this.log.info(`Job ${job.id} is stalled`);
+    this.queue.on('global:stalled', (jobId: string) => {
+      this.log.info(`Job ${jobId} is stalled`);
     });
   }
 
