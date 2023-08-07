@@ -6,7 +6,7 @@ import { BadRequestError } from '@global/helpers/error-handler';
 import { Helpers } from '@global/helpers/helpers';
 import { config } from '@root/config';
 import { authService } from '@service/db/auth.service';
-import { authQueue } from '@service/queues/auth.queues';
+import { authQueue } from '@service/queues/auth.queue';
 import { userQueue } from '@service/queues/user.queue';
 import { UserCache } from '@service/redis/user.cache';
 import { IUserDocument } from '@user/interfaces/user.interface';
@@ -56,7 +56,7 @@ export class SignUp {
     req.session = { jwt: userJwt };
     res
       .status(HTTP_STATUS.CREATED)
-      .json({ message: 'User created successfully!', user: userDataForCache, token: userJwt });
+      .json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
 
   private signToken(data: IAuthDocument, userObjectId: ObjectId): string {
